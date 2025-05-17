@@ -153,8 +153,8 @@
             }
 
             let isMostActive = gamesPlayed === maxGames && maxGames > 0;
-            let displayName = `${medal}${isMostActive ? "⭐ " : ""}${playerName}`;
-            let note = isMostActive ? `<div class="player-note">(most games played)</div>` : "";
+            let displayName = `${medal}${isMostActive ? "⭐ " : ""}${playerName}${" ⭐"};
+            let note = isMostActive ? `<div class="player-note">(most active player)</div>` : "";
 
             tr.innerHTML = `
               <td>${index + 1}</td>
@@ -245,7 +245,6 @@
       <td style="padding: 0.75rem;">
         • 7:00 AM – Opening Program<br>
         • 9:00–9:30 AM – Official Chess Check-In<br>
-        <small>Late check-ins are allowed until 12:00 NN, but 0.25 point will be deducted.</small>
       </td>
     </tr>
     <tr>
