@@ -13,7 +13,6 @@
     }
 
     h1 { margin-bottom: 0; }
-
     h2 {
       margin-top: 5px;
       color: #d9534f;
@@ -37,19 +36,10 @@
       white-space: normal;
     }
 
-    th {
-      background-color: #004080;
-      color: white;
-    }
+    th { background-color: #004080; color: white; }
 
-    .highlight {
-      background-color: #fff8b3;
-    }
-
-    .top-player {
-      background-color: #ffe5b4;
-    }
-
+    .highlight { background-color: #fff8b3; }
+    .top-player { background-color: #ffe5b4; }
     .champion {
       font-weight: bold;
       font-size: 1.3rem;
@@ -67,9 +57,7 @@
       font-size: 1rem;
     }
 
-    .button:hover {
-      background-color: #0056b3;
-    }
+    .button:hover { background-color: #0056b3; }
 
     a {
       color: #004080;
@@ -99,38 +87,12 @@
     function triggerConfetti() {
       confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
     }
-  </script>
-</head>
-<body>
 
-  <h1>CHESS Sportsfest 2025</h1>
-  <h2>♟️ Chess Live Scoreboard</h2>
-  <p class="notice">Please wait... it may take 2–10 seconds to load the live scores. If nothing appears, click Refresh Scores below.</p>
+    function findKeyInsensitive(obj, targetKey) {
+      const target = targetKey.trim().toLowerCase();
+      return Object.keys(obj).find(k => k.trim().toLowerCase() === target);
+    }
 
-  <button class="button" onclick="loadData()">🔄 Refresh Scores</button>
-  <a href="https://docs.google.com/spreadsheets/d/1ORabTLKXoJN1svjumnBY0QPFUOL0A_-9GQ6lrETDpgo/edit?gid=0" target="_blank">📂 View Score Database</a>
-
-  <p class="reminder">
-    ✨ Let’s practice Christian virtues in our games and show true sportsmanship with fairness, humility, and grace in every move.  
-    <br>“Above all, put on love, which binds us all together in perfect unity.” (Colossians 3:14)
-  </p>
-
-  <table id="standingsTable">
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player No.</th>
-        <th>Player Name</th>
-        <th>Games Played</th>
-        <th>Total Score</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td colspan="5">⏳ Loading live scores...</td></tr>
-    </tbody>
-  </table>
-
-  <script>
     function loadData() {
       const tbody = document.querySelector("#standingsTable tbody");
       tbody.innerHTML = `<tr><td colspan="5">⏳ Loading live scores...</td></tr>`;
@@ -148,10 +110,16 @@
 
           filteredData.forEach((row, index) => {
             const tr = document.createElement("tr");
-            const playerNumber = (row["Player Number"] || "").trim() || "—";
-            const playerName = (row["Player Name"] || "").trim();
-            const gamesPlayed = parseFloat(row["Games Played"]) || 0;
-            const totalScore = row["Total Score"] || "—";
+
+            const playerNumberKey = findKeyInsensitive(row, "Player Number");
+            const playerNameKey = findKeyInsensitive(row, "Player Name");
+            const gamesPlayedKey = findKeyInsensitive(row, "Games Played");
+            const totalScoreKey = findKeyInsensitive(row, "Total Score");
+
+            const playerNumber = row[playerNumberKey] || "—";
+            const playerName = row[playerNameKey] || "—";
+            const gamesPlayed = parseFloat(row[gamesPlayedKey]) || 0;
+            const totalScore = row[totalScoreKey] || "—";
 
             let medal = "";
             if (index === 0) {
@@ -194,6 +162,35 @@
 
     window.onload = loadData;
   </script>
+</head>
+<body>
+
+  <h1>CHESS Sportsfest 2025</h1>
+  <h2>♟️ Chess Live Scoreboard</h2>
+  <p class="notice">Please wait... it may take 2–10 seconds to load the live scores. If nothing appears, click Refresh Scores below.</p>
+
+  <button class="button" onclick="loadData()">🔄 Refresh Scores</button>
+  <a href="https://docs.google.com/spreadsheets/d/1ORabTLKXoJN1svjumnBY0QPFUOL0A_-9GQ6lrETDpgo/edit?gid=0" target="_blank">📂 View Score Database</a>
+
+  <p class="reminder">
+    ✨ Let’s practice Christian virtues in our games and show true sportsmanship — with fairness, humility, and grace in every move.  
+    <br>“Above all, put on love, which binds us all together in perfect unity.” (Colossians 3:14)
+  </p>
+
+  <table id="standingsTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player No.</th>
+        <th>Player Name</th>
+        <th>Games Played</th>
+        <th>Total Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="5">⏳ Loading live scores...</td></tr>
+    </tbody>
+  </table>
 
 </body>
 </html>
