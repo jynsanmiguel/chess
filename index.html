@@ -13,10 +13,17 @@
     }
 
     h1 { margin-bottom: 0; }
+
     h2 {
       margin-top: 5px;
       color: #d9534f;
       font-weight: bold;
+    }
+
+    #clock {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #555;
     }
 
     table {
@@ -80,6 +87,18 @@
       color: #444;
       max-width: 700px;
     }
+
+    .player-name {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .player-note {
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 0.25rem;
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -106,11 +125,8 @@
           tbody.innerHTML = "";
 
           const filteredData = data.filter(row => (row["Player Name"] || "").trim() !== "");
-
-          // Sort by total score
           filteredData.sort((a, b) => parseFloat(b["Total Score"]) - parseFloat(a["Total Score"]));
 
-          // Max games played
           const maxGames = Math.max(...filteredData.map(row => parseFloat(row["Games Played"]) || 0));
 
           filteredData.forEach((row, index) => {
@@ -135,16 +151,14 @@
               medal = "🥉 ";
             }
 
-            let star = "";
-            if (gamesPlayed === maxGames && maxGames > 0) {
-              tr.classList.add("top-player");
-              star = " 🏅";
-            }
+            let isMostActive = gamesPlayed === maxGames && maxGames > 0;
+            let displayName = `${medal}${isMostActive ? "⭐ " : ""}${playerName}`;
+            let note = isMostActive ? `<div class="player-note">(most games played)</div>` : "";
 
             tr.innerHTML = `
               <td>${index + 1}</td>
               <td>${playerNumber}</td>
-              <td>${medal}${playerName}${star}</td>
+              <td><div class="player-name">${displayName}${note}</div></td>
               <td>${gamesPlayed}</td>
               <td>${totalScore}</td>
             `;
@@ -161,20 +175,32 @@
         });
     }
 
-    window.onload = loadData;
+    function updateClock() {
+      const clock = document.getElementById("clock");
+      const now = new Date();
+      clock.textContent = now.toLocaleTimeString();
+    }
+
+    window.onload = () => {
+      loadData();
+      updateClock();
+      setInterval(updateClock, 1000);
+    };
   </script>
 </head>
 <body>
 
   <h1>CHESS Sportsfest 2025</h1>
   <h2>♟️ Chess Live Scoreboard</h2>
+  <div id="clock"></div>
+
   <p class="notice">Please wait... it may take 2–10 seconds to load the live scores. If nothing appears, click Refresh Scores below.</p>
 
   <button class="button" onclick="loadData()">🔄 Refresh Scores</button>
   <a href="https://docs.google.com/spreadsheets/d/1ORabTLKXoJN1svjumnBY0QPFUOL0A_-9GQ6lrETDpgo/edit?gid=0" target="_blank">📂 View Score Database</a>
 
   <p class="reminder">
-    ✨ Let’s practice Christian virtues in our games and show true sportsmanship with fairness, humility, and grace in every move.  
+    ✨ Let’s practice Christian virtues in our games and show true sportsmanship — with fairness, humility, and grace in every move.  
     <br>“Above all, put on love, which binds us all together in perfect unity.” (Colossians 3:14)
   </p>
 
