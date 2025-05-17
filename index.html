@@ -88,9 +88,12 @@
       confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
     }
 
-    function findKeyInsensitive(obj, targetKey) {
-      const target = targetKey.trim().toLowerCase();
-      return Object.keys(obj).find(k => k.trim().toLowerCase() === target);
+    function normalizeKeyMap(row) {
+      const keyMap = {};
+      Object.keys(row).forEach(k => {
+        keyMap[k.trim().toLowerCase()] = k;
+      });
+      return keyMap;
     }
 
     function loadData() {
@@ -104,22 +107,20 @@
 
           const filteredData = data.filter(row => (row["Player Name"] || "").trim() !== "");
 
+          // Sort by total score
           filteredData.sort((a, b) => parseFloat(b["Total Score"]) - parseFloat(a["Total Score"]));
 
+          // Max games played
           const maxGames = Math.max(...filteredData.map(row => parseFloat(row["Games Played"]) || 0));
 
           filteredData.forEach((row, index) => {
             const tr = document.createElement("tr");
 
-            const playerNumberKey = findKeyInsensitive(row, "Player Number");
-            const playerNameKey = findKeyInsensitive(row, "Player Name");
-            const gamesPlayedKey = findKeyInsensitive(row, "Games Played");
-            const totalScoreKey = findKeyInsensitive(row, "Total Score");
-
-            const playerNumber = row[playerNumberKey] || "—";
-            const playerName = row[playerNameKey] || "—";
-            const gamesPlayed = parseFloat(row[gamesPlayedKey]) || 0;
-            const totalScore = row[totalScoreKey] || "—";
+            const keys = normalizeKeyMap(row);
+            const playerNumber = row[keys["player number"]] || "—";
+            const playerName = row[keys["player name"]] || "—";
+            const gamesPlayed = parseFloat(row[keys["games played"]]) || 0;
+            const totalScore = row[keys["total score"]] || "—";
 
             let medal = "";
             if (index === 0) {
@@ -173,7 +174,7 @@
   <a href="https://docs.google.com/spreadsheets/d/1ORabTLKXoJN1svjumnBY0QPFUOL0A_-9GQ6lrETDpgo/edit?gid=0" target="_blank">📂 View Score Database</a>
 
   <p class="reminder">
-    ✨ Let’s practice Christian virtues in our games and show true sportsmanship — with fairness, humility, and grace in every move.  
+    ✨ Let’s practice Christian virtues in our games and show true sportsmanship with fairness, humility, and grace in every move.  
     <br>“Above all, put on love, which binds us all together in perfect unity.” (Colossians 3:14)
   </p>
 
