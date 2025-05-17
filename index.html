@@ -150,6 +150,8 @@
               tr.classList.add("highlight");
               medal = "🥉 ";
             }
+
+            let isMostActive = gamesPlayed === maxGames && maxGames > 0;
             let displayName = `${medal}${isMostActive ? "⭐ " : ""}${playerName}${isMostActive ? " ⭐" : ""}`;
             let note = isMostActive ? `<div class="player-note">(most active player)</div>` : "";
 
@@ -226,74 +228,55 @@
       <tr><td colspan="5">⏳ Loading live scores...</td></tr>
     </tbody>
   </table>
-<div style="max-width: 900px; margin: 2rem auto; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
-  <h3 style="color: #004080; text-align: left;">♟️ Chess Tournament Guidelines & Scoring</h3>
-  <table style="width: 100%; border-collapse: collapse; font-size: 1.05rem;">
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold; width: 25%;">📅 Date</td>
-      <td style="padding: 0.75rem;">May 18, 2025</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold;">📍 Venue</td>
-      <td style="padding: 0.75rem;">Fraser River Middle School, New Westminster</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold;">🕘 Check-In</td>
-      <td style="padding: 0.75rem;">
-        • 7:00 AM – Opening Program<br>
-        • 9:00–9:30 AM – Official Chess Check-In<br>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold;">🕓 Official Game Time</td>
-      <td style="padding: 0.75rem;">
-        • 9:45 AM – 12:00 NN<br>
-        ✅ Games started before 12:00 NN are counted.<br>
-        ❌ Games starting after 12:00 NN will not be scored.
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold;">🎮 Game Format</td>
-      <td style="padding: 0.75rem;">
-        • Friendly chess (no timer)<br>
-        • Players may freely choose opponents<br>
-        • Chess timer is optional if both agree<br>
-        • No immediate rematches (play someone else first)<br>
-        • Avoid repeat matches when possible
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold;">📊 Scoring System</td>
-      <td style="padding: 0.75rem;">
-        ✅ Win: <strong>1 point</strong><br>
-        🤝 Draw / Stalemate: <strong>0.5 point</strong><br>
-        ❌ Loss: <strong>0.25 point</strong><br>
-        🏳️ Surrender: <strong>0 points</strong>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold;">🏆 Awards</td>
-      <td style="padding: 0.75rem;">
-        • 🥇 Champion – Highest Score<br>
-        • 🥈 1st Runner-Up – Second Highest<br>
-        • 🥉 2nd Runner-Up – Third Highest<br>
-        • ⭐ Most Active Player – Most Games Played
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; font-weight: bold;">🧑‍⚖️ Arbiter</td>
-      <td style="padding: 0.75rem;">
-        Bro. Jyn – The official referee of the tournament.<br>
-        All disputes will be resolved by the arbiter, whose decisions are final.
-      </td>
-    </tr>
-  </table>
 
-  <p style="margin-top: 1.5rem; font-style: italic; color: #555;">
-    “Let everything be done in order, with kindness and humility. May our games reflect the spirit of Christian virtue and joy.”
-  </p>
-</div>
-
+  <div style="max-width: 900px; margin: 2rem auto; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+    <h3 style="color: #004080; text-align: left;">♟️ Chess Tournament Guidelines & Scoring</h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 1.05rem;">
+      <tr><td style="padding: 0.75rem; font-weight: bold; width: 25%;">📅 Date</td><td style="padding: 0.75rem;">May 18, 2025</td></tr>
+      <tr><td style="padding: 0.75rem; font-weight: bold;">📍 Venue</td><td style="padding: 0.75rem;">Fraser River Middle School, New Westminster</td></tr>
+      <tr><td style="padding: 0.75rem; font-weight: bold;">🕘 Check-In</td>
+          <td style="padding: 0.75rem;">
+            • 7:00 AM – Opening Program<br>
+            • 9:00–9:30 AM – Official Chess Check-In
+          </td></tr>
+      <tr><td style="padding: 0.75rem; font-weight: bold;">🕓 Official Game Time</td>
+          <td style="padding: 0.75rem;">
+            • 9:45 AM – 12:00 NN<br>
+            ✅ Games started before 12:00 NN are counted.<br>
+            ❌ Games starting after 12:00 NN will not be scored.
+          </td></tr>
+      <tr><td style="padding: 0.75rem; font-weight: bold;">🎮 Game Format</td>
+          <td style="padding: 0.75rem;">
+            • Friendly chess (no timer)<br>
+            • Players may freely choose opponents<br>
+            • Chess timer is optional if both agree<br>
+            • No immediate rematches (play someone else first)<br>
+            • Avoid repeat matches when possible
+          </td></tr>
+      <tr><td style="padding: 0.75rem; font-weight: bold;">📊 Scoring System</td>
+          <td style="padding: 0.75rem;">
+            ✅ Win: 1 point<br>
+            🤝 Draw / Stalemate: 0.5 point<br>
+            ❌ Loss: 0.25 point<br>
+            🏳️ Surrender: 0 points
+          </td></tr>
+      <tr><td style="padding: 0.75rem; font-weight: bold;">🏆 Awards</td>
+          <td style="padding: 0.75rem;">
+            • 🥇 Champion – Highest Score<br>
+            • 🥈 1st Runner-Up – Second Highest<br>
+            • 🥉 2nd Runner-Up – Third Highest<br>
+            • ⭐ Most Active Player – Most Games Played
+          </td></tr>
+      <tr><td style="padding: 0.75rem; font-weight: bold;">🧑‍⚖️ Arbiter</td>
+          <td style="padding: 0.75rem;">
+            Bro. Jyn – The official referee of the tournament.<br>
+            All disputes will be resolved by the arbiter, whose decisions are final.
+          </td></tr>
+    </table>
+    <p style="margin-top: 1.5rem; font-style: italic; color: #555;">
+      “Let everything be done in order, with kindness and humility. May our games reflect the spirit of Christian virtue and joy.”
+    </p>
+  </div>
 
 </body>
 </html>
