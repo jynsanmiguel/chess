@@ -148,8 +148,8 @@
 
           filteredData.forEach((row, index) => {
             const tr = document.createElement("tr");
-            const playerNumber = row["Player Number"] || "—";
-            const playerName = row["Player Name"];
+            const playerNumber = (row["Player Number"] || "").trim() || "—";
+            const playerName = (row["Player Name"] || "").trim();
             const gamesPlayed = parseFloat(row["Games Played"]) || 0;
             const totalScore = row["Total Score"] || "—";
 
