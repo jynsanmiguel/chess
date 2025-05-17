@@ -2,96 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chess Sportsfest 2025</title>
+  <title>CHESS Sportsfest 2025</title>
   <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg" type="image/svg+xml">
   <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f7ff;
-    padding: 2rem;
-    text-align: center;
-  }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f7ff;
+      padding: 2rem;
+      text-align: center;
+    }
 
-  h1 { margin-bottom: 0; }
-  h2 {
-    margin-top: 5px;
-    color: #d9534f;
-    font-weight: bold;
-  }
+    h1 { margin-bottom: 0; }
 
-  table {
-    width: 90%;
-    margin: auto;
-    border-collapse: collapse;
-    background-color: white;
-    table-layout: auto; /* allows dynamic column sizing */
-  }
+    h2 {
+      margin-top: 5px;
+      color: #d9534f;
+      font-weight: bold;
+    }
 
-  th, td {
-    border: 1px solid #ccc;
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.25rem; /* same as h2-ish */
-    word-wrap: break-word;
-    white-space: normal;
-  }
+    table {
+      width: 90%;
+      margin: auto;
+      border-collapse: collapse;
+      background-color: white;
+      table-layout: auto;
+    }
 
-  th {
-    background-color: #004080;
-    color: white;
-  }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.25rem;
+      word-wrap: break-word;
+      white-space: normal;
+    }
 
-  .highlight {
-    background-color: #fff8b3;
-  }
+    th {
+      background-color: #004080;
+      color: white;
+    }
 
-  .top-player {
-    background-color: #ffe5b4;
-  }
+    .highlight {
+      background-color: #fff8b3;
+    }
 
-  .champion {
-    font-weight: bold;
-    font-size: 1.3rem;
-    color: #b30000;
-  }
+    .top-player {
+      background-color: #ffe5b4;
+    }
 
-  .button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    margin: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
+    .champion {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #b30000;
+    }
 
-  .button:hover {
-    background-color: #0056b3;
-  }
+    .button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      margin: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
 
-  a {
-    color: #004080;
-    text-decoration: none;
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-  }
+    .button:hover {
+      background-color: #0056b3;
+    }
 
-  .notice {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 1.5rem;
-  }
+    a {
+      color: #004080;
+      text-decoration: none;
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
 
-  .reminder {
-    margin: 1.5rem auto 1rem auto;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: #444;
-    max-width: 700px;
-  }
-</style>
+    .notice {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    .reminder {
+      margin: 1.5rem auto 1rem auto;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #444;
+      max-width: 700px;
+    }
+  </style>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
@@ -104,14 +105,14 @@
 
   <h1>CHESS Sportsfest 2025</h1>
   <h2>♟️ Chess Live Scoreboard</h2>
-  <h3>May 18, 2025</h3>
-  <p class="notice" font size=50%>Please wait... it may take 2–10 seconds to load the live scores. If nothing appears, click Refresh Scores below.</p>
+  <p class="notice">Please wait... it may take 2–10 seconds to load the live scores. If nothing appears, click Refresh Scores below.</p>
 
   <button class="button" onclick="loadData()">🔄 Refresh Scores</button>
   <a href="https://docs.google.com/spreadsheets/d/1ORabTLKXoJN1svjumnBY0QPFUOL0A_-9GQ6lrETDpgo/edit?gid=0" target="_blank">📂 View Score Database</a>
 
   <p class="reminder">
-    ✨ Let’s practice Christian virtues in our games and show true sportsmanship with fairness, humility, and grace in every move. "Above all, put on love, which binds us all together in perfect unity." (Colossians 3:14)
+    ✨ Let’s practice Christian virtues in our games and show true sportsmanship — with fairness, humility, and grace in every move.  
+    <br>“Above all, put on love, which binds us all together in perfect unity.” (Colossians 3:14)
   </p>
 
   <table id="standingsTable">
@@ -138,13 +139,10 @@
         .then(data => {
           tbody.innerHTML = "";
 
-          // Filter out rows with empty Player Name
           const filteredData = data.filter(row => (row["Player Name"] || "").trim() !== "");
 
-          // Sort by total score descending
           filteredData.sort((a, b) => parseFloat(b["Total Score"]) - parseFloat(a["Total Score"]));
 
-          // Find highest number of games played
           const maxGames = Math.max(...filteredData.map(row => parseFloat(row["Games Played"]) || 0));
 
           filteredData.forEach((row, index) => {
@@ -153,7 +151,6 @@
             const gamesPlayed = parseFloat(row["Games Played"]) || 0;
             const totalScore = row["Total Score"] || "—";
 
-            // Medal icons
             let medal = "";
             if (index === 0) {
               tr.classList.add("highlight", "champion");
@@ -167,7 +164,6 @@
               medal = "🥉 ";
             }
 
-            // Most games played star
             let star = "";
             if (gamesPlayed === maxGames && maxGames > 0) {
               tr.classList.add("top-player");
