@@ -150,9 +150,7 @@
               tr.classList.add("highlight");
               medal = "🥉 ";
             }
-
-            let isMostActive = gamesPlayed === maxGames && maxGames > 0;
-            let displayName = `${medal}${isMostActive ? "⭐ " : ""}${playerName}${" ⭐"};
+            let displayName = `${medal}${isMostActive ? "⭐ " : ""}${playerName}${isMostActive ? " ⭐" : ""}`;
             let note = isMostActive ? `<div class="player-note">(most active player)</div>` : "";
 
             tr.innerHTML = `
