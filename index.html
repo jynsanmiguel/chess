@@ -178,7 +178,17 @@
     function updateClock() {
       const clock = document.getElementById("clock");
       const now = new Date();
-      clock.textContent = now.toLocaleTimeString();
+      const options = {
+        timeZone: "America/Vancouver",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "2-digit"
+      };
+      clock.textContent = now.toLocaleString("en-CA", options) + " (Vancouver time)";
     }
 
     window.onload = () => {
@@ -192,7 +202,7 @@
 
   <h1>CHESS Sportsfest 2025</h1>
   <h2>♟️ Chess Live Scoreboard</h2>
-  <div id="clock"></div>
+  <div id="clock">Loading Vancouver time...</div>
 
   <p class="notice">Please wait... it may take 2–10 seconds to load the live scores. If nothing appears, click Refresh Scores below.</p>
 
